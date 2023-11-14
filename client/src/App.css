@@ -44,3 +44,23 @@
 .active{
   text-decoration: underline;
 }
+
+.navbar{
+  background:white;
+  box-shadow: 0 0 10px rgba(0,0,0,.1);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-style: normal;
+  border-radius: 8px;
+  border: 1px solid rgb(101, 53, 53);
+}
+
+.route{
+  color: white
+}
+
+.h1{
+  margin-top: auto;
+  color:rgb(101, 53, 53)
+}
