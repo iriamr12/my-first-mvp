@@ -1,14 +1,17 @@
 import React from 'react'
-import {useState} from 'react';
+import {useState, useEffect} from 'react';
 import {Link} from "react-router-dom"
-
 export default function Citizenship(){
 
     const [citizens, setCitizens] = useState([]);
+
+    useEffect(() => {
+        getCitizens()
+       }, [])
     
     const getCitizens = async () => {
         try{
-            const response = await fetch(`/api/citizens`, {
+            const response = await fetch(`/api`, {
                 method: 'GET', 
             }) ;
             const data = await response.json();
@@ -25,7 +28,7 @@ export default function Citizenship(){
                 {
                     citizens.map(c => (
                         <li key ={c.id}>
-                            <Link to={`/citizens/${c.id}`}>{s.firstname} {s.lastname}</Link>
+                            <Link to={`/citizens/${c.id}`}>{c.id_number} {c.firstname} {c.lastname} {c.date_of_birth} {c.place_of_birth}</Link>
                         </li>
                     ))
                 }

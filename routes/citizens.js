@@ -1,25 +1,18 @@
 var express = require("express");
 var router = express.Router();
 const db = require("../model/helper");
-const models = require("../models");
+//const models = require("../model");
 
 
-//GET CITIZENS LIST
-// router.get('/', async function (req,res){
-//     try{
-//         const citizens = await models.Citizen.findAll();
-//         res.send(citizens);
-// }catch(err){
-//     res.status(500).send(error);
-// }
-// });
 
-router.get("/", function(req, res, next){
-    db("SELECT * FROM citizens;")
-    .then(results => {
-        res.send(results.data);
-    })
-    .catch(err => res.status(500).send(err));
+router.get("/", async function(req, res) {
+  try {
+    const result = await db("SELECT * FROM citizens");
+    const citizens = result.data;
+    res.send(citizens);
+  } catch (err){
+    res.status(500).send({error:err.message});
+  }
 });
 
 // GET one citizen
