@@ -1,45 +1,73 @@
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import './App.css'
-import{Routes, Route, Link, NavLink} from "react-router-dom"
-import Home from './pages/Home'
-import Education from './pages/Education'
-import Health from './pages/Health'
-import Citizenship from './pages/Citizenship'
-import Vehicles from './pages/Vehicles'
-import Employment from './pages/Employment'
+import NewCitizenData from "./components/NewCitizenData"
+import DataList from './components/DataList';
+import {Routes, Route, BrowserRouter } from 'react-router-dom';
+import Citizenship from './components/Citizenship';
+import Education from './components/Education';
 
 
-function App() {
+
+export default function App () {
+   
+  const [data, setData] = useState([]);
+  const [citizen, setCitizen] = useState([]);
+
+  useEffect(()=> {
+    getData();
+  },
+  []);
+
+
+async function getData() {
+  try{
+    let response = await fetch("/api");
+    if(response.ok){
+      let data = await response.json();
+      //set the state
+      setData(data);
+    }
+    else{
+      console.log(`Server Error: ${response.status} ${response.statusText}`);
+    }
+
+  } catch(err){//the server never contacted
+      console.log(`Network Error, ${err.message}`);
+  }
+
+}
+
+async function showCitizen(id) {
+  console.log(id);
+  try{
+    let response = await fetch(`/api/${id}`);
+     if(response.ok){
+      let data = await response.json();
+      setCitizen(data)
+    }
+    else{//Server Error
+      console.log(`Server Error: ${response.status} ${response.statusText}`);
+    }
+
+  }catch(e){
+    console.log("Network Error", e);
+  }
+}
   
   return (
-   <div>
-        <nav className='navbar'>
-          <NavLink to="/" >Home</NavLink>
-          <br/>
-            <NavLink to="/citizenship">Citizenship</NavLink>
-            <br/>
-            <NavLink to="/education">Education</NavLink>
-            <br/>
-            <NavLink to="/health">Health</NavLink>
-            <br/>
-            <NavLink to="/vehicles">Vehicles</NavLink>
-        </nav>
-    
-        <h1>My digital environment</h1>
+          <div>
 
-        <Routes>
-          <Route path="/" element={<Home />} />
-          <Route path="/education" element={<Education />} />
-          <Route path="/health" element={<Health />} />
-          <Route path="/citizenship" element={<Citizenship />} />
-          <Route path="/employment" element={<Employment />} />
-          <Route path="/vehicles" element={<Vehicles />} />
-        </Routes>
-    </div>
-   
-
-
+                <Routes>
+                  <Route path='/' index element={<NewCitizenData showCitizen = {(id)=> showCitizen(id)}/>} />
+                  <Route path='/citizen' element={<DataList citizen={citizen}/>} />
+                        <Route path="/citizen/citizenship" element={<Citizenship citizen={citizen}/>}/>
+                        <Route path="/citizen/education" element={<Education citizen={citizen}/>}/>
+                </Routes>
+            </div>
+        
   )
 }
 
-export default App
+
+
+

@@ -1,0 +1,63 @@
+nav{
+    display: flex;
+    justify-content: space-evenly;
+    background-color: rgb(240, 188, 188);
+    height: 30px;
+    padding-top: 15px; 
+    position: relative;
+    top: 30px;
+    
+}
+
+h1{
+ font-family:Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
+ padding: 10px 
+}
+
+/* .btn:focus
+{
+    border: 2px solid rgb(106, 26, 26);
+    background-color: rgb(106, 26, 26);
+    cursor: pointer;
+    text-align: center;
+    font-weight: 900;
+    size: 20px;
+    color:aliceblue
+} */
+.btn:focus{
+    border: 2px;
+    padding: 40px 80px;
+    background-color:  rgb(106, 26, 26);
+    color: aliceblue;
+    cursor: pointer;
+    text-align: center;
+    border-radius: 5px;
+    font-size: large;
+}
+.btn{
+    border: 2px;
+    padding: 40px 80px;
+    background-color: whitesmoke;
+    cursor: pointer;
+    text-align: center;
+    font-size: large;
+    border-radius: 5px;
+}
+
+container{
+    display: flex;
+    justify-content: space-evenly;
+}
+
+.nombre{
+    color: rgb(106, 26, 26);
+}
+
+
+.citizenship-img{
+    position: relative;
+    bottom: 310px
+}
+.bold {
+    font-weight: bold;
+  }
